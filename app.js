@@ -1,14 +1,15 @@
 const popUp = document.getElementById('popUp')
-let gramatas = []
+let Task = [];
 
 window.addEventListener('load', () => {
-    gramatas = JSON.parse(localStorage.getItem("gramatas"));
-    console.log(gramatas)
+    Task = JSON.parse(localStorage.getItem("Task") || "[]");
+    console.log(Task)
+
     render();
 })
 
 
-document.getElementById('jaunaGramata').addEventListener('click', () => {
+document.getElementById('jaunsTasks').addEventListener('click', () => {
     popUp.style.display = 'block'
 })
 
@@ -20,7 +21,7 @@ document.getElementById('pievienot').addEventListener('click', () => {
     Uzdevums.value = "";
     Termins.value = "";
 
-    gramatas.push(gramata);
+    Task.push(gramata);
 
     render();
 })
@@ -28,15 +29,16 @@ document.getElementById('pievienot').addEventListener('click', () => {
 function render(){
     let biblioteka = document.getElementById('biblioteka')
     biblioteka.innerHTML = "";
-    for(let i = 0; i < gramatas.length; i++) {
-        let gramata = `       
+    for(let i = 0; i < Task.length; i++) {
+        let id = `       
         <div class="id"> 
-            <h3>Uzdevums: ${gramatas[i].Uzdevums}</h3>
-            <h4>Autors: ${gramatas[i].Termins}</h4>
+            <h3>Uzdevums: ${Task[i].Uzdevums}</h3>
+            <h4>Autors: ${Task[i].Termins}</h4>
+            <input type = "checkbox" id="delete">
         </div>`;
-        biblioteka.innerHTML += gramata;
+        biblioteka.innerHTML += id;
     }
-    localStorage.setItem("gramatas", JSON.stringify(gramatas))
+    localStorage.setItem("Task", JSON.stringify(Task))
 
 }
 
